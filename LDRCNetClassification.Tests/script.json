@@ -1,0 +1,11 @@
+[
+    {
+        "SymbolName": "PowerNetGroup",
+        "Regex": [
+            "/^(VIN)+/",
+            "/(ACC)+/",
+            "/^\\+[0-9]{2}/",
+            "/^(?i:GND|0)$/"
+        ]
+    }
+]

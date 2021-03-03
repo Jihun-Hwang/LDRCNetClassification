@@ -1,0 +1,12 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Classifications>
+  <NetClassification>
+    <SymbolName>PowerNetGroup</SymbolName>
+    <RegexItems>
+      <Regex>^(VIN)+</Regex>
+      <Regex>(ACC)+</Regex>
+      <Regex>^\\+[0-9]{2}</Regex>
+      <Regex>^(?i:GND|0)$</Regex>
+    </RegexItems>
+  </NetClassification>
+</Classifications>

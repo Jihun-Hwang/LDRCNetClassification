@@ -1,0 +1,137 @@
+﻿<Window x:Class="LDRCNetClassificationUI.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:LDRCNetClassificationUI"
+        xmlns:prism="http://prismlibrary.com/"
+        mc:Ignorable="d"
+        prism:ViewModelLocator.AutoWireViewModel="True"
+        Title="LDRC Net Classification"
+        Height="514" Width="1000"
+        WindowStartupLocation="CenterScreen">
+    <Window.Resources>
+        <!-- Button style -->
+        <Style x:Key="ButtonStyle" TargetType="Button">
+            <Setter Property="Background" Value="Transparent"/>
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="FontFamily" Value="Comic Sans MS"/>
+            <Setter Property="BorderBrush" Value="Transparent"/>
+        </Style>
+        <!-- 등록된 파일 경로를 보이는 TextBlock style -->
+        <Style x:Key="FileNameStyle" TargetType="TextBlock">
+            <Setter Property="Margin" Value="1"/>
+            <Setter Property="FontFamily" Value="Lucida Console"/>
+            <Setter Property="VerticalAlignment" Value="Center"/>
+        </Style>
+    </Window.Resources>
+
+    <Grid Name="outline" >
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="1*"/>
+            <ColumnDefinition Width="11*"/>
+            <ColumnDefinition Width="5*"/>
+        </Grid.ColumnDefinitions>
+
+        <!-- 1. outline grid에서 가장 왼쪽 1e73be -->
+        <Grid Name="left" Grid.Row="0" Grid.Column="0" Background="#1e73be">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="1*"/>
+                <RowDefinition Height="1*"/>
+                <RowDefinition Height="1*"/>
+                <RowDefinition Height="5*"/>
+                <RowDefinition Height="1*"/>
+            </Grid.RowDefinitions>
+
+            <Button Grid.Row="0" Grid.Column="0" Style="{StaticResource ButtonStyle}"
+                    Content="New&#10;Regex" Command="{Binding RegexButtonCommand}" FontSize="10"/>
+            <Button Grid.Row="1" Grid.Column="0" Style="{StaticResource ButtonStyle}"
+                    Content="New&#10;Net" Command="{Binding NetNameButtonCommand}" FontSize="10"/>
+            <Button Grid.Row="2" Grid.Column="0" Style="{StaticResource ButtonStyle}"
+                    Content="Clear" Command="{Binding ClearButtonCommand}" FontSize="10"/>
+            <TextBlock Grid.Row="6" Grid.Column="0" Text="LDRC&#10;Net&#10;Classification"
+                       FontSize="8" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+        </Grid>
+
+        <!-- 2. outline grid에서 가운데 -->
+        <Grid Name="center" Grid.Row="0" Grid.Column="1" Background="Transparent">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="1*"/>
+                <RowDefinition Height="12*"/>
+            </Grid.RowDefinitions>
+
+            <Grid Name="가운데칸상단바" Grid.Row="0" Grid.Column="0">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="7*"/>
+                    <ColumnDefinition Width="1*"/>
+                    <ColumnDefinition Width="1*"/>
+                </Grid.ColumnDefinitions>
+
+                <DockPanel Name="등록된파일이름">
+                    <TextBlock DockPanel.Dock="Top"
+                               Style="{StaticResource FileNameStyle}"
+                               Text="{Binding RegexFileNameText}"/>
+                    <TextBlock DockPanel.Dock="Bottom"
+                               Style="{StaticResource FileNameStyle}"
+                               Text="{Binding NetFileNameText}"/>
+                </DockPanel>
+
+                <!-- execute, save button f57e46 -->
+                <Border  Grid.Row="0" Grid.Column="1"
+                         BorderBrush="Transparent" Background="#404040" CornerRadius="5" Margin="5">
+                    <Button Content="Execute"
+                            Command="{Binding ExecuteButtonCommand}"
+                            Style="{StaticResource ButtonStyle}" FontSize="13"/>
+                </Border>
+                <Border  Grid.Row="0" Grid.Column="2"
+                         BorderBrush="Transparent" Background="#404040" CornerRadius="5" Margin="5">
+                    <Button Content="Save"
+                            Command="{Binding SaveButtonCommand}"
+                            Style="{StaticResource ButtonStyle}" FontSize="13"/>
+                </Border>
+            </Grid>
+
+            <DataGrid Grid.Row="1" Grid.Column="0"
+                      AutoGenerateColumns="False"
+                      IsReadOnly="True"
+                      ItemsSource="{Binding GridItems}">
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="No." Binding="{Binding Idx}"/>
+                    <DataGridTextColumn Header="Net Name" Binding="{Binding NetName}" Width="300"/>
+                    <DataGridTextColumn Header="Classification" Binding="{Binding Classification}"/>
+                </DataGrid.Columns>
+            </DataGrid>
+        </Grid>
+
+        <!-- 3. outline grid에서 가장 오른쪽 -->
+        <Grid Grid.Row="0" Grid.Column="2" Background="#E4E6EB">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="1*"/>
+                <RowDefinition Height="7*"/>
+            </Grid.RowDefinitions>
+
+            <Grid.Resources>
+                <!-- 통계 부분의 TextBlock style -->
+                <Style TargetType="TextBlock">
+                    <Setter Property="Background" Value="Transparent"/>
+                    <Setter Property="Foreground" Value="Black"/>
+                    <Setter Property="HorizontalAlignment" Value="Left"/>
+                    <Setter Property="VerticalAlignment" Value="Center"/>
+                    <Setter Property="FontFamily" Value="Lucida Console"/>
+                    <Setter Property="FontSize" Value="15"/>
+                    <Setter Property="Margin" Value="5"/>
+                </Style>
+            </Grid.Resources>
+
+            <!-- 각 8개 Group의 요소 개수(%) display 수정중-->
+            <!-- TODO : 수정중-->
+            <TextBlock Grid.Row="0" Grid.Column="0"
+                   HorizontalAlignment="Center"
+                   Text="Statistics"/>
+
+            <TextBlock Grid.Row="1" Grid.Column="0"
+                       Text="{Binding Statics}"/>
+
+        </Grid>
+    </Grid>
+</Window>
